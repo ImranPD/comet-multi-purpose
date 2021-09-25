@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Models;
+
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+
+class Tag extends Model
+{
+    use HasFactory;
+    protected $guarded=[];
+
+
+    //many to many relation with tag model
+
+
+    public function posts(){
+
+        return $this->belongsToMany('App\Models\Post');
+    }
+}

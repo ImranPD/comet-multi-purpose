@@ -15,7 +15,7 @@
 
         $(document).on('click', '#logout_btn', function(e) {
 
-            e.preventDefault();
+            e.preventDefault(); 
 
             $('#logout_form').submit();
         });
@@ -201,7 +201,7 @@
             for (let i = 0; i < e.target.files.length; i++) {
 
                 let gall_url = URL.createObjectURL(e.target.files[i]);
-                img_gall += '<img class="shadow" src="' + gall_url + '">';
+                img_gall += '<img style="width:150px" class="shadow" src="' + gall_url + '">';
 
             }
 

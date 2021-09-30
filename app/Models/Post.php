@@ -35,4 +35,14 @@ class Post extends Model
         }
 
 
+        /**
+         * relation with comment model
+         *
+         */
+
+         public function comments(){
+
+            return $this->hasMany('App\Models\Comment');
+         }
+
 }

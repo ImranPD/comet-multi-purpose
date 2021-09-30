@@ -73,19 +73,80 @@
               </div>
             </article>
             <!-- end of article-->
+
+            @if(Session::has('success'))
+
+            <p class="alert alert-success">{{ Session::get('success') }} <button class="close" data-dismiss="alert">&times;</button> </p>
+
+            @endif
+
+
             <div id="comments">
+
               <h5 class="upper">3 Comments</h5>
+
               <ul class="comments-list">
+
+                @foreach ($all_posts->comments as $comment)
+
+                @if($comment->comment_id ==null)
+
+
                 <li>
                   <div class="comment">
                     <div class="comment-pic">
                       <img src="{{ URL::to('comet/assets/images/team/1.jpg') }}" alt="" class="img-circle">
                     </div>
                     <div class="comment-text">
-                      <h5 class="upper">Jesse Pinkman</h5><span class="comment-date">Posted on 29 September at 10:41</span>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime distinctio et quam possimus velit dolor sunt nisi neque, harum, dolores rem incidunt, esse ipsa nam facilis eum doloremque numquam veniam.</p><a href="#" class="comment-reply">Reply</a>
+                      <h5 class="upper">{{  $comment->user->name }}</h5>
+                      <span class="comment-date">Posted on {{ date('d F,Y',strtotime($comment->created_at)) }} at {{ date('g:i',strtotime($comment->created_at)) }}</span>
+                      <p>{{ $comment->text }}</p>
+
+                      @guest
+
+                      <p>For reply please <a href="{{ route('admin.login') }}">Login</a> first</p>
+
+                      @else
+
+                      <a class="reply_btn" c_id="{{ $comment->id }}" href="#" class="comment-reply">Reply</a>
+
+                      <div class="reply-box reply-box-{{ $comment->id }}">
+
+                        <form action="{{ route('post.reply') }}" method="POST">
+                        @csrf
+
+                         <div class="form-group">
+                            <input name="post_id" type="hidden" value="{{ $all_posts->id   }}">
+                         </div>
+                         <div class="form-group">
+                            <input name="comment_id" type="hidden" value="{{ $comment->id  }}">
+                         </div>
+
+                        <div class="form-group">
+                            <textarea name="reply" placeholder="Comment reply..." class="form-control"></textarea>
+                          </div>
+                          <div class="form-submit text-right">
+                            <button  type="submmit" class="btn btn-color-out">Post Comment</button>
+                          </div>
+
+                        </form>
+
+                      </div>
+
+                      @endguest
+
                     </div>
                   </div>
+
+
+                  @php
+                      $reply=App\Models\Comment::where('comment_id', '!=',null)->where('comment_id',$comment->id)->get();
+                  @endphp
+
+                  @foreach ($reply as $rep_comm)
+
+
+
                   <ul class="children">
                     <li>
                       <div class="comment">
@@ -93,52 +154,72 @@
                           <img src="{{ URL::to('comet/assets/images/team/2.jpg') }}" alt="" class="img-circle">
                         </div>
                         <div class="comment-text">
-                          <h5 class="upper">Arya Stark</h5><span class="comment-date">Posted on 29 September at 10:41</span>
-                          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cumque porro quae harum dolorem exercitationem voluptas illum ipsa sed hic, cum corporis autem molestias suscipit, illo laborum, vitae, dicta ullam minus.</p><a href="#"
-                          class="comment-reply">Reply</a>
+
+                          <h5 class="upper">{{ $rep_comm->user->name }}</h5>
+
+                          <span class="comment-date">Posted on {{ date('d F,Y',strtotime($rep_comm->created_at)) }} at {{ date('g:i',strtotime($rep_comm->created_at)) }}</span>
+
+                          <p>{{ $rep_comm->text }}</p>
+
+                          <a href="#" class="comment-reply">Reply</a>
+
                         </div>
                       </div>
                     </li>
                   </ul>
+
+                  @endforeach
+
+
                 </li>
-                <li>
-                  <div class="comment">
-                    <div class="comment-pic">
-                      <img src="{{ URL::to('comet/assets/images/team/3.jpg') }}" alt="" class="img-circle">
-                    </div>
-                    <div class="comment-text">
-                      <h5 class="upper">Rust Cohle</h5><span class="comment-date">Posted on 29 September at 10:41</span>
-                      <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A deleniti sit beatae natus! Beatae velit labore, numquam excepturi, molestias reiciendis, ipsam quas iure distinctio quia, voluptate expedita autem explicabo illo.</p>
-                      <a
-                      href="#" class="comment-reply">Reply</a>
-                    </div>
-                  </div>
-                </li>
+
+                @endif
+                @endforeach
+
+
               </ul>
+
             </div>
+
+
             <!-- end of comments-->
+
+
+
+            @guest
+
+            <p>Please <a href="{{ route('admin.login') }}">Login</a> first then write coment </p>
+            @else
+
+
             <div id="respond">
               <h5 class="upper">Leave a comment</h5>
               <div class="comment-respond">
-                <form class="comment-form">
+                <form class="comment-form" action="{{ route('post.comment')}}" method="POST">
+                    @csrf
                   <div class="form-double">
-                    <div class="form-group">
+                    {{--  <div class="form-group">
                       <input name="author" type="text" placeholder="Name" class="form-control">
                     </div>
                     <div class="form-group last">
                       <input name="email" type="text" placeholder="Email" class="form-control">
-                    </div>
+                    </div>  --}}
                   </div>
                   <div class="form-group">
-                    <textarea placeholder="Comment" class="form-control"></textarea>
+                    <input name="post_id" type="hidden" value="{{ $all_posts->id }}">
+                  </div>
+                  <div class="form-group">
+                    <textarea name="comment" placeholder="Comment" class="form-control"></textarea>
                   </div>
                   <div class="form-submit text-right">
-                    <button type="button" class="btn btn-color-out">Post Comment</button>
+                    <button  type="submmit" class="btn btn-color-out">Post Comment</button>
                   </div>
                 </form>
               </div>
             </div>
             <!-- end of comment form-->
+
+        @endguest
           </div>
 
 

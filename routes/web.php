@@ -38,6 +38,11 @@ Route::post('admin/login',[App\Http\Controllers\Auth\LoginController::class,'log
 Route::post('admin/logout',[App\Http\Controllers\Auth\LoginController::class,'logout'])->name('admin.logout');
 Route::post('admin/register',[App\Http\Controllers\Auth\RegisterController::class,'register'])->name('admin.register');
 
+//blog post comment
+
+Route::post('blog-post-comment','App\Http\Controllers\CommentController@postCommentAdd')->name('post.comment');
+Route::post('blog-comment-reply','App\Http\Controllers\CommentController@postCommentReply')->name('post.reply');
+
 
 //middleware
 

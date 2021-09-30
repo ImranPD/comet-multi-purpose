@@ -17,7 +17,7 @@
                         <p class="account-subtitle">Access to our dashboard</p>
 
                         <!-- Form -->
-                        <form action="{{ route('admin.login') }}" method="POST">
+                        <form action="{{ route('admin.login') }}" method="POST" autocomplete="off">
                             @csrf
                             <div class="form-group">
                                 <input name="login_info" class="form-control" type="text" placeholder="Email/phone/username">

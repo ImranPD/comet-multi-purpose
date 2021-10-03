@@ -30,6 +30,10 @@
 
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
+        <!--  datatables  -->
+
+        <link rel="stylesheet" href="{{ asset('admin/assets/css/datatables.min.css') }}">
+
 
 		<!-- Main CSS -->
         <link rel="stylesheet" href="{{ asset('admin/assets/css/style.css') }}">
@@ -69,7 +73,12 @@
 
         <!--select2-->
         <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        
+
+        <!--datatables-->
+
+        <script src="{{ asset('admin/assets/js/datatables.min.js') }}"></script>
+
+
 		<!-- Custom JS -->
 		<script src="{{ asset('admin/assets/js/script.js') }}"></script>
 		<script src="{{ asset('admin/assets/js/cusjom.js') }}"></script>

@@ -15,7 +15,7 @@
 
         $(document).on('click', '#logout_btn', function(e) {
 
-            e.preventDefault(); 
+            e.preventDefault();
 
             $('#logout_form').submit();
         });
@@ -36,6 +36,7 @@
                     success: function(data) {
 
                         swal('status inactive successfully');
+                        $('#cat-table').DataTable().ajax.reload();
 
                     }
                 });
@@ -48,6 +49,7 @@
                     success: function(data) {
 
                         swal('status active successfully');
+                        $('#cat-table').DataTable().ajax.reload();
 
                     }
                 });
@@ -118,6 +120,7 @@
                     success: function(data) {
 
                         swal('Tag inactive successfully');
+                        $('#tag_table').DataTable().ajax.reload();
                     }
                 });
 
@@ -129,6 +132,7 @@
                     success: function(data) {
 
                         swal('Tag active successfully');
+                        $('#tag_table').DataTable().ajax.reload();
                     }
                 });
 
@@ -319,7 +323,105 @@
         $('#sidebar-menu ul li ul li.ok').parent('ul').parent('li').children('a').css('background-color', '#19C1DC');
         $('#sidebar-menu ul li ul li.ok').parent('ul').parent('li').children('a').addClass('subdrop');
 
+        //datatables in post
 
+        $('#dataTabs').DataTable();
+
+
+
+        //datatables in category
+
+        $('#cat-table').DataTable({
+
+            processing: true,
+            serverSide: true,
+
+            ajax: {
+
+                url: 'category',
+
+            },
+
+            columns: [
+
+                {
+                    data: 'id',
+                    name: 'id'
+
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'slug',
+                    name: 'slug'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+
+                },
+                {
+                    data: 'stat',
+                    name: 'stat'
+                        // render: function(data, type, full, meta) {
+
+                    //     return `<div class="status-toggle">
+                    //                     <input type="checkbox" status_id="${full.id}" ${data==1 ? 'checked=="checked"' : ''}  id="cat_status" class="check cat_status">
+                    //                     <label for="cat_status" class="checktoggle">checkbox</label>
+                    //                 </div>`;
+                    // }
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+
+
+            ]
+        });
+
+
+        //tag data tables
+
+        $('#tag_table').DataTable({
+
+            processing: true,
+            serverSide: true,
+
+            ajax: {
+                url: 'tag',
+            },
+            columns: [
+
+                {
+                    data: 'id',
+                    name: 'id'
+                },
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+                {
+                    data: 'slug',
+                    name: 'slug'
+                },
+                {
+                    data: 'created_at',
+                    name: 'created_at'
+
+                },
+                {
+                    data: 'stat',
+                    name: 'stat'
+                },
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+            ]
+        });
 
 
     });

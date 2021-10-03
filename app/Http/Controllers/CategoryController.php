@@ -17,12 +17,34 @@ class CategoryController extends Controller
 
 
     {
-        $data=Category::all();
+        // $data=Category::all();
 
-        return view('admin.post.category.index',[
+        // return view('admin.post.category.index',[
 
-            'all_data' =>  $data
-        ]);
+        //     'all_data' =>  $data
+        // ]);
+
+            if(request()->ajax()){
+
+                return datatables()->of(Category::latest()->get())->addColumn('action',function($data){
+
+                    $btn='<a class="btn btn-sm btn-secondary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+                    $btn .='<a class="btn btn-sm btn-danger ml-1" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>';
+
+                    return  $btn;
+
+                })->addColumn('stat',function($data){
+
+                    $stat_check='<div class="status-toggle">';
+                    $stat_check.='<input type="checkbox" status_id="'.$data->id.'"  '.($data->status==1 ? "checked=\'checked\'" :"").'   id="cat_status_'.$data->id.'" class="check cat_status">';
+                    $stat_check.='<label for="cat_status_'.$data->id.'" class="checktoggle">checkbox</label>';
+                    $stat_check.='</div>';
+
+                    return $stat_check;
+
+                })->rawColumns(['action','stat'])->make(true);
+            }
+                return view('admin.post.category.index');
     }
 
     /**

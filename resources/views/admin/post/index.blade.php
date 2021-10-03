@@ -48,7 +48,7 @@
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
-										<table class="table mb-0 text-center">
+										<table id="dataTabs" class="table mb-0 text-center">
 											<thead>
 
 
@@ -106,7 +106,7 @@
 													</td>
 													<td>
                                                         {{--  <a class="btn btn-primary btn-sm" href="#"><i class="fa fa-eye" aria-hidden="true"></i></a>  --}}
-                                                        <a class="btn btn-secondary btn-sm" href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                                                        <a edit="{{ $data->id }}" class="btn btn-secondary btn-sm" href="{{ route('post.edit',$data->id) }}"><i class="fa fa-pencil" aria-hidden="true"></i></a>
                                                         <a class="btn btn-danger btn-sm" href="{{route('post.trash.update',$data->id)}}"><i class="fa fa-trash" aria-hidden="true"></i></a>
                                                     </td>
 												</tr>

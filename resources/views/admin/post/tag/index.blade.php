@@ -46,7 +46,7 @@
 								</div>
 								<div class="card-body">
 									<div class="table-responsive">
-										<table class="table mb-0 text-center">
+										<table id="tag_table" class="table mb-0 text-center">
 											<thead>
 												<tr>
 													<th>#</th>
@@ -57,36 +57,7 @@
 													<th>Action</th>
 												</tr>
 											</thead>
-											<tbody>
 
-                                                @foreach ($all_tag as $data )
-                                                    
-                                                
-												<tr>
-													<td>{{ $loop->index+1 }}</td>
-													<td>{{ $data->name }}</td>
-													<td>{{ $data->slug }}</td>
-													<td>{{ $data->updated_at->diffForHumans() }}</td>
-													<td>
-                                                        <div class="status-toggle">
-															<input type="checkbox" tag_staus="{{ $data->id }}" {{ ($data->status==true ? 'checked="checked"' : '') }}  id="tag_status_{{$loop->index+1}}" class="check tag_status">
-															<label for="tag_status_{{$loop->index+1}}" class="checktoggle">checkbox</label>
-														</div>
-                                                    </td>
-													<td>
-                                                        {{--  <a class="btn btn-primary btn-sm" href="#">View</a>  --}}
-                                                        <a id="edit_id" edit_tag="{{ $data->id }}" class="btn btn-secondary btn-sm" href="#"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                                                        <form class="d-inline" id="tag_delete" action="{{ route('tag.destroy',$data->id) }}" method="POST">
-                                                            @csrf
-                                                            @method('DELETE')
-                                                            <button id="tag_btn" class="btn btn-danger btn-sm"><i class="fa fa-trash" aria-hidden="true"></i></button>
-                                                        </form>
-
-                                                        
-                                                    </td>
-												</tr>
-                                                @endforeach
-											</tbody>
 										</table>
 									</div>
 								</div>
@@ -143,10 +114,10 @@
                 <div class="modal-body">
                     <button class="close" data-dismiss="modal">&times;</button>
                     <h2>Update Tag</h2>
-                    <form action="{{ route('tag.update',$data->id) }}" method="POST">
+                    <form action="" method="POST">
                         @csrf
                         @method('PUT')
-                        
+
                         <div class="form-group">
                             <label for="Name">Name</label>
                             <input name="name" class="form-control" type="text">

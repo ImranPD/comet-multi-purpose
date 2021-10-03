@@ -186,7 +186,16 @@ class PostController extends Controller
      */
     public function edit($id)
     {
-        //
+        $cat=Category::all();
+        $tag=Tag::all();
+        $edit_post=Post::find($id);
+
+        return view('admin.post.edit',[
+
+            'all_cat'  =>  $cat,
+            'all_tag'  =>  $tag,
+            'edit_post'  =>   $edit_post
+        ]);
     }
 
     /**

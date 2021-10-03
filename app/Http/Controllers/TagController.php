@@ -15,11 +15,28 @@ class TagController extends Controller
      */
     public function index()
     {
-        $all_tag=Tag::all();
-        return view('admin.post.tag.index',[
+        if(request()-> ajax()){
 
-            'all_tag' => $all_tag
-        ]);
+            return datatables()->of(Tag::latest()->get())->addColumn('action',function($data){
+
+                $btn='<a class="btn btn-sm btn-primary" href=""><i class="fa fa-pencil" aria-hidden="true"></i></a>';
+                $btn.='<a class="btn btn-sm btn-danger ml-1" href=""><i class="fa fa-trash" aria-hidden="true"></i></a>';
+
+                return  $btn;
+
+            })->addColumn('stat',function($data){
+
+                $sta='<div class="status-toggle">';
+                $sta.='<input type="checkbox" '.($data->status==1 ? "checked=\'checked\'" : "").' tag_staus="'.$data->id.'"   id="tag_status_'.$data->id.'" class="check tag_status">';
+                $sta.='<label for="tag_status_'.$data->id.'" class="checktoggle">checkbox</label>';
+                $sta.='</div>';
+
+                return $sta;
+
+            })->rawColumns(['action','stat'])->make(true);
+
+        }
+        return view('admin.post.tag.index');
     }
 
     /**

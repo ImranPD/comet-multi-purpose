@@ -15,7 +15,11 @@ class {{ class }} extends Controller
      */
     public function index()
     {
-        //
+        $all_data={{ namespacedModel }}::latest()->get();
+        return view('view.name',[
+
+            'all_data'  =>  $data
+        ]);
     }
 
     /**

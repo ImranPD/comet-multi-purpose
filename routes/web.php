@@ -73,6 +73,21 @@ Route::post('blog-comment-reply','App\Http\Controllers\CommentController@postCom
         Route::get('category/status-active/{id}','App\Http\Controllers\CategoryController@statusUpdateActive');
 
 
+        //products brand
+
+
+        Route::resource('brand','App\Http\Controllers\BrandController');
+        Route::get('brand/status-inactive/{id}','App\Http\Controllers\BrandController@brandStatusInactive');
+        Route::get('brand/status-active/{id}','App\Http\Controllers\BrandController@brandStatusActive');
+        Route::get('brand-delete/{id}','App\Http\Controllers\BrandController@brandDelete');
+        Route::get('brand-edit/{id}','App\Http\Controllers\BrandController@brandEdit');
+
+        //product category
+
+        Route::resource('product-category','App\Http\Controllers\ProductCategoryController');
+        Route::get('product-category-delete/{id}','App\Http\Controllers\ProductCategoryController@categoryProductDelete')->name('Pcat.delete');
+        Route::get('product-category-edit/{id}','App\Http\Controllers\ProductCategoryController@categoryProductDelete')->name('Pcat.edit');
+
     });
 
 

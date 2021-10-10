@@ -424,6 +424,253 @@
         });
 
 
+        //brand status update
+
+        $(document).on('click', '.brand_status', function() {
+
+            let checked = $(this).attr('checked');
+            let status_id = $(this).attr('status_id');
+
+            if (checked == 'checked') {
+
+                $.ajax({
+
+                    url: 'brand/status-inactive/' + status_id,
+
+                    success: function(data) {
+
+                        swal('Status inctive successful');
+
+                        $('#brand-table').DataTable().ajax.reload();
+
+                    }
+                });
+
+            } else {
+
+                $.ajax({
+
+                    url: 'brand/status-active/' + status_id,
+
+                    success: function(data) {
+
+                        swal('Status Active successful');
+                        $('#brand-table').DataTable().ajax.reload();
+
+                    }
+                });
+
+
+            }
+
+        });
+
+
+        //brand with datatables
+
+        $('#brand-table').DataTable({
+
+            processing: true,
+            serverSide: true,
+
+            ajax: {
+
+                url: 'brand',
+            },
+
+            columns: [
+
+                {
+                    data: 'id',
+                    name: 'id'
+                },
+
+                {
+                    data: 'name',
+                    name: 'name'
+                },
+
+                {
+                    data: 'slug',
+                    name: 'slug'
+                },
+
+                {
+                    data: 'logo',
+                    name: 'logo',
+
+                    render: function(data, type, full, meta) {
+
+                        return `<img style="width:60px;" src="media/product/brand/${data}" alt="">`;
+
+                    }
+                },
+
+                {
+                    data: 'stat',
+                    name: 'stat'
+
+                    // render: function(data, type, full, meta) {
+
+                    //     return `<div class="status-toggle">
+                    //               <input type="checkbox" status_id="${full.id}"  ${full.status == 1 ? 'checked="checked"' : ''}  id="brand_status_${full.id}" class="check brand_status">
+                    //               <label for="brand_status_${full.id}" class="checktoggle">checkbox</label>
+                    //             </div>`;
+
+                    // }
+                },
+
+                {
+                    data: 'action',
+                    name: 'action'
+                }
+            ]
+        });
+
+        //add brand
+
+        $(document).on('submit', '#add_form', function(e) {
+
+            e.preventDefault();
+
+            $.ajax({
+
+                url: 'brand',
+                method: 'POST',
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function(data) {
+
+                    $('#add_form')[0].reset();
+                    $('#add_brand_modal').modal('hide');
+                    $('#brand-table').DataTable().ajax.reload();
+                    swal(data);
+                }
+            });
+        });
+
+
+
+        //brand delete
+
+        $(document).on('click', '.del_btn', function(e) {
+            e.preventDefault();
+
+            let delete_id = $(this).attr('del_id');
+
+
+            swal({
+                title: "Are you sure?",
+                text: "Once deleted, you will not be able to recover this imaginary file!",
+                icon: "warning",
+                buttons: true,
+                dangerMode: true,
+            }).then((brandDelete) => {
+
+                if (brandDelete) {
+
+                    $.ajax({
+
+                        url: 'brand-delete/' + delete_id,
+                        success: function(data) {
+
+                            if (data) {
+
+                                $('#brand-table').DataTable().ajax.reload();
+
+                                swal({
+
+                                    title: "Deleted",
+                                    text: data,
+                                    icon: "success",
+                                });
+
+                            }
+                        }
+                    });
+
+                } else {
+
+                    swal("Your Data is safe!");
+                    $('#brand-table').DataTable().ajax.reload();
+                }
+
+            });
+
+        });
+
+        //brand edit
+        $(document).on('click', '.edit_btn', function(e) {
+
+                e.preventDefault();
+
+                let id = $(this).attr('edit_id');
+
+                $.ajax({
+
+                    url: 'brand-edit/' + id,
+                    success: function(data) {
+
+                        $('#edit_forrm input[name="name"]').val(data.name);
+                        $('#edit_forrm input[name="edit_id"]').val(data.id);
+                        $('#edit_forrm input[name="old_photo"]').val(data.logo);
+                        $('#brand_photo').attr('src', 'media/product/brand/' + data.logo);
+                        $('#edit_forrm').attr('form_no', data.id);
+
+                        $('#edit_brand_modal').modal('show');
+                    }
+                })
+            })
+            //update brand
+
+        $(document).on('submit', '#edit_forrm', function(e) {
+
+            e.preventDefault();
+
+            let id = $(this).attr('form_no');
+
+
+            $.ajax({
+
+                url: 'brand/' + id,
+                method: "POST",
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function(data) {
+
+
+                    swal({
+
+                        title: "Updated",
+                        text: "Brand Updated Successful",
+                        icon: "success",
+                    });
+                    $('#brand-table').DataTable().ajax.reload();
+
+                    $('#edit_brand_modal').modal('hide');
+
+
+                }
+            });
+
+
+        });
+
+
+
+        //edit modal
+
+        $(document).on('click', '#pcat_edit', function(e) {
+
+            e.preventDefault();
+
+            $('#edit_pcat_modal').modal('show');
+        });
+
+
+
     });
 
 })(jQuery)

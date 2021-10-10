@@ -4910,3 +4910,19 @@ table.table-inbox tbody tr.checked {
     border: 5px solid #fff !important;
     margin: 5px !important;
 }
+
+.editDel {
+    display: none;
+}
+
+.editDel a:nth-child(1) {
+    color: blue;
+}
+
+.editDel a:nth-child(2) {
+    color: red;
+}
+
+ul.parenMain li:hover>.editDel {
+    display: inline-block;
+}

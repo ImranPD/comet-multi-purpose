@@ -44,4 +44,23 @@ class Controller extends BaseController
 
         return str_replace(' ','-',$slug_data);
       }
+
+
+      protected function imageLoad($request,$img,$path){
+
+
+        if($request->hasFile($img)){
+
+            $file=$request->file($img);
+            $unique_name=md5(time().rand()).'.'.$file->getClientOriginalExtension();
+            $file->move(public_path($path), $unique_name);
+
+            return $unique_name;
+
+        }else{
+
+            return '';
+        }
+
+      }
 }

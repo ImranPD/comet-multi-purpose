@@ -28,10 +28,10 @@
                             <li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Product </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><a href="login.html"> products </a></li>
-									<li><a href="register.html"> Category </a></li>
-									<li><a href="forgot-password.html"> Tag </a></li>
-									<li><a href="lock-screen.html"> Brand </a></li>
+									<li><a href=""> products </a></li>
+									<li><a href="{{ route('product-category.index') }}"> Category </a></li>
+									<li><a href=""> Tag </a></li>
+									<li><a href="{{ route('brand.index') }}"> Brand </a></li>
 								</ul>
 							</li>
                             <li class="submenu">

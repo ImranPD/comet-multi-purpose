@@ -86,7 +86,21 @@ Route::post('blog-comment-reply','App\Http\Controllers\CommentController@postCom
 
         Route::resource('product-category','App\Http\Controllers\ProductCategoryController');
         Route::get('product-category-delete/{id}','App\Http\Controllers\ProductCategoryController@categoryProductDelete')->name('Pcat.delete');
-        Route::get('product-category-edit/{id}','App\Http\Controllers\ProductCategoryController@categoryProductDelete')->name('Pcat.edit');
+        Route::get('product-category-edit/{id}','App\Http\Controllers\ProductCategoryController@categoryProductEdit')->name('Pcat.edit');
+        Route::post('product-category-update','App\Http\Controllers\ProductCategoryController@categoryProductUpdate')->name('Pcat.update');
+
+    //product tag
+
+        Route::resource('product-tag','App\Http\Controllers\ProdcttagController');
+        Route::get('product-tag-inactive/{id}','App\Http\Controllers\ProdcttagController@ptagInctive');
+        Route::get('product-tag-active/{id}','App\Http\Controllers\ProdcttagController@ptagActive');
+        Route::get('product-tag-edit/{id}','App\Http\Controllers\ProdcttagController@ptagEdit')->name('product.tag.edit');
+        Route::post('product-tag-update/{id}','App\Http\Controllers\ProdcttagController@ptagupdate')->name('product.tag.edit');
+
+
+
+
+
 
     });
 

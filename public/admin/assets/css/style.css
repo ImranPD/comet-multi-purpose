@@ -4925,4 +4925,5 @@ table.table-inbox tbody tr.checked {
 
 ul.parenMain li:hover>.editDel {
     display: inline-block;
+    cursor: pointer;
 }

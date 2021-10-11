@@ -101,7 +101,7 @@
                                         @foreach ( $first_cat as $cat1)
 
                                             <li>{{ $cat1->name }} <div class="editDel">
-                                                                    <a id="pcat_edit" href="">Edit</a>
+                                                                    <a id="pcat_edit" edit_id="{{ $cat1->id }}" href="">Edit</a>
                                                                     <a href="{{ route('Pcat.delete',$cat1->id) }}">delete</a>
                                                                  </div>
 
@@ -109,7 +109,7 @@
                                                 @foreach ($cat1->getChild as $cat2)
 
                                                     <li>{{ $cat2->name }}<div class="editDel">
-                                                                            <a href="">Edit</a>
+                                                                            <a id="pcat_edit" edit_id="{{ $cat2->id }} href="">Edit</a>
                                                                             <a href="{{ route('Pcat.delete',$cat2->id) }}">delete</a>
                                                                         </div>
 
@@ -117,7 +117,7 @@
                                                             @foreach ($cat2->getChild as $cat3)
 
                                                                 <li>{{ $cat3->name }}<div class="editDel">
-                                                                                        <a href="">Edit</a>
+                                                                                        <a id="pcat_edit" edit_id="{{ $cat3->id }} href="">Edit</a>
                                                                                         <a href="{{ route('Pcat.delete',$cat3->id) }}">delete</a>
                                                                                     </div>
 
@@ -125,7 +125,7 @@
                                                                         @foreach ($cat3->getChild as $cat4)
 
                                                                             <li>{{ $cat4->name }}<div class="editDel">
-                                                                                                    <a href="">Edit</a>
+                                                                                                    <a id="pcat_edit" edit_id="{{ $cat4->id }} href="">Edit</a>
                                                                                                     <a href="{{ route('Pcat.delete',$cat4->id) }}">delete</a>
                                                                                                 </div>
 
@@ -134,7 +134,7 @@
 
                                                                                         <li>{{ $cat5->name }}
                                                                                             <div class="editDel">
-                                                                                                <a href="">Edit</a>
+                                                                                                <a id="pcat_edit" edit_id="{{ $cat5->id }} href="">Edit</a>
                                                                                                 <a href="{{ route('Pcat.delete',$cat5->id) }}">delete</a>
                                                                                              </div>
                                                                                         </li>
@@ -205,7 +205,7 @@
                     <div class="modal-body">
                         <button class="close" data-dismiss="modal">&times;</button>
                         <h2>Update category</h2>
-                        <form id="edit_form" form_no="" method="POST" enctype="multipart/form-data">
+                        <form id="pcat_edit_form" action="{{ route('Pcat.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="form-group">
                                 <label for="Name">Name</label>
@@ -220,7 +220,7 @@
                             <div class="form-group">
 
                                 <label  for="Name">Photo</label>
-                                <img id="brand_photo" style="width: 120px;height:120px;display:block; margin-bottom:10px;" src="" alt="">
+                                <img id="pcat_photo" style="width: 120px;height:120px;display:block; margin-bottom:10px;" src="" alt="">
                                 <input name="new_photo" class="form-control" type="file">
                                 <input name="old_photo" class="form-control" type="hidden">
                             </div>
@@ -231,9 +231,6 @@
 
                                 <select name="parent_cat" class="form-control">
 
-                                    <option value="">Select</option>
-
-                                    <option value=""></option>
 
                             </div>
                             <div class="form-group ">

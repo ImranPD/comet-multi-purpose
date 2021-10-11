@@ -666,8 +666,106 @@
 
             e.preventDefault();
 
-            $('#edit_pcat_modal').modal('show');
+            let edit_id = $(this).attr('edit_id');
+
+            $.ajax({
+
+                url: 'product-category-edit/' + edit_id,
+
+                success: function(data) {
+
+                    $('#pcat_edit_form input[name="edit_id"]').val(data.id);
+                    $('#pcat_edit_form input[name="name"]').val(data.name);
+                    $('#pcat_edit_form input[name="old_photo"]').val(data.image);
+                    $('#pcat_edit_form img').attr('src', 'media/product/category/' + data.image);
+                    $('#pcat_edit_form select[name="parent_cat"]').html(data.cat_list);
+
+                    $('#edit_pcat_modal').modal('show');
+                }
+            });
+
+
         });
+
+
+        //product tag active/inactive
+
+        $(document).on('click', '.ptag_status', function(e) {
+
+            let checked = $(this).attr('checked');
+            let status_id = $(this).attr('status_id');
+
+            if (checked == 'checked') {
+
+                $.ajax({
+
+                    url: 'product-tag-inactive/' + status_id,
+                    success: function(data) {
+
+                        swal('tag inactive ');
+
+                    }
+                });
+
+            } else {
+
+                $.ajax({
+
+                    url: 'product-tag-active/' + status_id,
+                    success: function(data) {
+
+                        swal('tag active ');
+
+                    }
+                });
+            }
+        });
+
+        //product tag edit
+
+        $(document).on('click', '#edit', function(e) {
+            e.preventDefault();
+
+            let edit_id = $(this).attr('edit_id');
+
+            $.ajax({
+
+                url: 'product-tag-edit/' + edit_id,
+                success: function(data) {
+
+                    $('#edit_ptag_form input[name="name"]').val(data.id);
+                    $('#edit_ptag_form input[name="name"]').val(data.name);
+                    $('#edit_ptag_form input[name="edit_id"]').val(data.id);
+
+                    $('#edit_ptag_modal').modal('show');
+
+
+
+                }
+            });
+
+        });
+
+        //tag update
+
+        $(document).on('submit', '#edit_ptag_form', function(e) {
+
+            let edit_id = $(this).attr('edit_id');
+
+            $.ajax({
+
+                url: 'product-tag-update/' + edit_id,
+                method: "POST",
+                data: new FormData(this),
+                contentType: false,
+                processData: false,
+                success: function(data) {
+
+                    $('#edit_ptag_modal').modal('hide');
+                }
+            });
+        })
+
 
 
 

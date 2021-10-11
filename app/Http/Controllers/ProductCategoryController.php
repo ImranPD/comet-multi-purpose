@@ -139,4 +139,78 @@ class ProductCategoryController extends Controller
 
         }
     }
+
+    public function categoryProductEdit($id){
+
+        $pcat_edit=ProductCategory::find($id);
+        $cat_select=ProductCategory::all();
+
+        $cat_list='<option value="">-selected-</option>';
+
+
+
+
+
+        foreach($cat_select as $cat){
+
+            $selected='';
+
+            if($cat->id==$pcat_edit->parent){
+
+                $selected='selected="selected"';
+            }
+
+            $cat_list.="<option {$selected} value=\"{$cat->id}\">{$cat->name}</option>";
+
+        }
+
+
+        return [
+
+            'id'         =>$pcat_edit->id,
+            'name'       =>$pcat_edit->name,
+            'icon'       =>$pcat_edit->icon,
+            'image'      =>$pcat_edit->image,
+            'parent'     =>$pcat_edit->parent,
+            'cat_list'   => $cat_list
+
+        ];
+
+    }
+
+    public function categoryProductUpdate(Request $request)
+    {
+
+        $unique_name=$request->old_photo;
+
+        if( $request->hasFile('new_photo')){
+
+            $unique_name=$this->imageLoad( $request,'new_photo','media/product/category/');
+
+            if(file_exists('media/product/category/'.$request->old_photo)){
+
+                unlink('media/product/category/'.$request->old_photo);
+
+            }
+
+        }else{
+
+            $unique_name=$request->old_photo;
+        }
+
+
+
+        $update_data=ProductCategory::find($request->edit_id);
+
+        $this->findChild($update_data->id,$update_data->parent);
+
+        $update_data->name   =$request->name;
+        $update_data->slug   =$this->getSlug($request->name);
+        $update_data->icon   =$request->icon;
+        $update_data->image  = $unique_name;
+        $update_data->parent = $request->parent_cat;
+        $update_data->update();
+
+        return back();
+    }
 }

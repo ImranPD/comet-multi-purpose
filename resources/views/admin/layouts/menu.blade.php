@@ -28,7 +28,7 @@
                             <li class="submenu">
 								<a href="#"><i class="fe fe-document"></i> <span> Product </span> <span class="menu-arrow"></span></a>
 								<ul style="display: none;">
-									<li><a href=""> products </a></li>
+									<li><a href="{{ route('product.index') }}"> products </a></li>
 									<li><a href="{{ route('product-category.index') }}"> Category </a></li>
 									<li><a href="{{ route('product-tag.index') }}"> Tag </a></li>
 									<li><a href="{{ route('brand.index') }}"> Brand </a></li>

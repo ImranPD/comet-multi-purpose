@@ -766,6 +766,106 @@
             });
         })
 
+        //size box
+        $('#psize_btn').click(function(e) {
+
+            e.preventDefault();
+
+            let rand_num = Math.floor(Math.random() * 10000);
+
+            let box_container = `<div class="card shadow box-field">
+
+                                    <div data-toggle="collapse" data-target="#sizeBox-${rand_num}" class="card-header">Size- ${rand_num}
+                                    <button class="close text-light close_btn">&times;</button>
+                                    </div>
+
+                                        <div id="sizeBox-${rand_num}" class="collapse">
+                                            <div class="card-body">
+
+                                                <div class="form-group">
+                                                    <input name="psize[]" class="form-control" type="text" placeholder="Add Size">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="pprice[]" class="form-control" type="text" placeholder="Price">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="psprice[]" class="form-control" type="text" placeholder="sale Price">
+                                                </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>`;
+
+            $('#sizeBox').append(box_container);
+
+        });
+
+
+
+        // //close box button
+
+        $(document).on('click', '.close_btn', function(e) {
+
+            $(this).parent('.card-header').parent('.card').remove();
+        });
+
+        //color box
+
+        $('#pcolor_btn').click(function(e) {
+
+            e.preventDefault();
+
+            let rand_num = Math.floor(Math.random() * 10000);
+
+            let color_container = `<div class="card shadow box-field">
+
+                                    <div data-toggle="collapse" data-target="#colorBox-${rand_num}" class="card-header">color- ${rand_num}
+                                    <button class="close text-light close_btn">&times;</button>
+                                    </div>
+
+                                        <div id="colorBox-${rand_num}" class="collapse">
+                                            <div class="card-body">
+
+                                                <div class="form-group">
+                                                    <input name="pcolor[]" class="form-control" type="text" placeholder="Add color">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="colorPrice[]" class="form-control" type="text" placeholder="Price">
+                                                </div>
+                                                <div class="form-group">
+                                                    <input name="colorSalep[]" class="form-control" type="text" placeholder="sale Price">
+                                                </div>
+
+                                        </div>
+                                    </div>
+
+                                </div>`;
+
+            $('#colorBox').append(color_container);
+
+
+
+        });
+
+        //variable product
+
+        $('#pvarBox').change(function() {
+
+            let opt = $("#pvarBox:checked").val();
+
+            if (opt == 'variable') {
+
+                $('.var-box').show();
+
+            } else {
+
+                $('.var-box').hide();
+                $('.box-field input').val(null);
+
+            }
+        });
+
 
 
 

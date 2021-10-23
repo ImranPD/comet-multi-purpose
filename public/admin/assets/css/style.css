@@ -4927,3 +4927,29 @@ ul.parenMain li:hover>.editDel {
     display: inline-block;
     cursor: pointer;
 }
+
+.size-box .card {
+    margin-bottom: 5px;
+}
+
+.size-box .card .card-header {
+    padding: 3px;
+    background-color: #000;
+    color: #FFF;
+}
+
+.size-box .card .card-body {
+    padding: 3px;
+}
+
+.class-list li {
+    list-style: none;
+}
+
+.class-list ul:first-child {
+    padding-left: 0px;
+}
+
+.var-box {
+    display: none;
+}

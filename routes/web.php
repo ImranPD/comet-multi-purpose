@@ -97,7 +97,9 @@ Route::post('blog-comment-reply','App\Http\Controllers\CommentController@postCom
         Route::get('product-tag-edit/{id}','App\Http\Controllers\ProdcttagController@ptagEdit')->name('product.tag.edit');
         Route::post('product-tag-update/{id}','App\Http\Controllers\ProdcttagController@ptagupdate')->name('product.tag.edit');
 
+        //product
 
+        Route::resource('product','App\Http\Controllers\ProductController');
 
 
 
